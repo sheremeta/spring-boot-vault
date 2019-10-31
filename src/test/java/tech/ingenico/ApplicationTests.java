@@ -31,7 +31,7 @@ public class ApplicationTests {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        setupVault();
+        addVaultPolicies();
     }
 
     @Test
@@ -44,12 +44,12 @@ public class ApplicationTests {
         assertThat(decrypted).isEqualTo(secret);
     }
 
-    private static void setupVault() throws java.io.IOException, InterruptedException {
+    private static void addVaultPolicies() throws java.io.IOException, InterruptedException {
         System.setProperty("VAULT_HOST", vault.getContainerIpAddress());
         System.setProperty("VAULT_PORT", String.valueOf(vault.getFirstMappedPort()));
         System.setProperty("VAULT_TOKEN", "sUlnKb4t35NBNwiZ4762mEAm");
 
         vault.execInContainer("/bin/sh", "-c", "vault secrets enable transit");
-        vault.execInContainer("/bin/sh", "-c", "vault write -f transit/keys/customer");
+        vault.execInContainer("/bin/sh", "-c", "vault write -f transit/keys/client");
     }
 }

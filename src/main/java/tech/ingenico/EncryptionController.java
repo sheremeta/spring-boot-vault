@@ -20,11 +20,11 @@ public class EncryptionController {
 
     @GetMapping("/encrypt")
     public String encrypt(@RequestParam String value) {
-        return vaultOperations.opsForTransit().encrypt("customer", Plaintext.of(value)).getCiphertext();
+        return vaultOperations.opsForTransit().encrypt("client", Plaintext.of(value)).getCiphertext();
     }
 
     @GetMapping("/decrypt")
     public String decrypt(@RequestParam String value) {
-        return vaultOperations.opsForTransit().decrypt("customer", Ciphertext.of(value)).asString();
+        return vaultOperations.opsForTransit().decrypt("client", Ciphertext.of(value)).asString();
     }
 }
